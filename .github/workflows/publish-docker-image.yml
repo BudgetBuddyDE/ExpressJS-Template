@@ -7,7 +7,7 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
 env:
-  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/expressjs-template
+  IMAGE_NAME: ghcr.io/budgetbuddyde/expressjs-template
 
 jobs:
   build_image:
@@ -58,16 +58,16 @@ jobs:
           docker tag ${{ env.IMAGE_NAME }}:${{ github.ref_name }} ${{ env.IMAGE_NAME }}:latest
           docker push ${{ env.IMAGE_NAME }}:latest
 
-  trigger_deployment:
-    needs: push_image
-    name: Trigger deployment
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dispatch
-        uses: peter-evans/repository-dispatch@v2
-        with:
-          token: ${{ secrets.PAT }}
-          event-type: trigger_deployment
+  # trigger_deployment:
+  #   needs: push_image
+  #   name: Trigger deployment
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Dispatch
+  #       uses: peter-evans/repository-dispatch@v2
+  #       with:
+  #         token: ${{ secrets.PAT }}
+  #         event-type: trigger_deployment
 
   cleanup:
     needs: push_image
