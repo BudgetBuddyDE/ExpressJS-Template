@@ -25,10 +25,12 @@ if (MISSING_ENVIRONMENT_VARIABLES.length >= 1) {
 import { name, version } from '../package.json';
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import DefaultRoute from './router/Default.router';
 
 export const app = express();
 
+app.use(cors(config.cors));
 app.use(logMiddleware);
 app.use(bodyParser.json());
 

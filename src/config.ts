@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { getCurrentRuntimeEnvironment, isRunningInProduction } from './utils';
+import { type CorsOptions } from 'cors';
 
 /**
  * Represents the configuration options for the application.
@@ -21,6 +22,7 @@ export type TConfig = {
    * any number when set by `proces.env.PORT`
    */
   port: 8080 | 8070 | number;
+  cors: CorsOptions;
 };
 
 /**
@@ -39,4 +41,9 @@ export const config: TConfig = {
       : isRunningInProduction()
       ? 8080
       : 8070,
+  cors: {
+    origin: isRunningInProduction() ? 'https://*budget-buddy.de' : '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  },
 };
